@@ -12,7 +12,7 @@ import { constructorSlice } from './slices/constructorIngredientSlice';
 import { userSlice } from './slices/userSlice';
 import { userOrdersSlice } from './slices/userOrdersSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [ingredientsSlice.name]: ingredientsSlice.reducer,
     [constructorSlice.name]: constructorSlice.reducer,
@@ -22,6 +22,15 @@ const store = configureStore({
     [userOrdersSlice.name]: userOrdersSlice.reducer
   },
   devTools: process.env.NODE_ENV !== 'production'
+});
+
+export const rootReducer = combineReducers({
+  ingredients: ingredientsSlice.reducer,
+  constructorIngredient: constructorSlice.reducer,
+  user: userSlice.reducer,
+  feeds: feedsSlice.reducer,
+  newOrder: newOrderSlice.reducer,
+  orders: userOrdersSlice.reducer
 });
 
 export type RootState = ReturnType<typeof store.getState>;

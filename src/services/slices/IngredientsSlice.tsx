@@ -1,12 +1,24 @@
-import { getFeedsApi, getIngredientsApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getFeedsApi, getIngredientsApi } from '../../utils/burger-api';
+import { createAsyncThunk, createSlice, Dispatch } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
-export const getIngredientsList = createAsyncThunk(
-  'ingredients/getIngredients',
-  getIngredientsApi
+export const getIngredientsList = createAsyncThunk<
+  TIngredient[], // Тип возвращаемого значения
+  void, // Тип аргумента
+  ThunkConfig // Тип конфигурации thunk
+>(
+  'ingredients/getIngredients', // Имя thunk
+  getIngredientsApi // Функция, которая будет вызвана
 );
+
+export type ThunkConfig = {
+  state: RootState;
+  dispatch: Dispatch;
+  extra: any;
+  rejectWithValue: (error: any, meta?: any) => { error: any; meta?: any };
+};
 
 type TIngredientsState = {
   ingredients: Array<TIngredient>;
@@ -14,7 +26,7 @@ type TIngredientsState = {
   error: string | null | undefined;
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   ingredients: [],
   loading: false,
   error: null
@@ -51,3 +63,4 @@ export const {
   getIngredientsLoadingState,
   getIngredients
 } = ingredientsSlice.selectors;
+export const ingredientsReducer = ingredientsSlice.reducer;
