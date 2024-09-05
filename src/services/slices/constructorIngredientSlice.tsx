@@ -9,7 +9,7 @@ type TConstructorState = {
   ingredients: TConstructorIngredient[];
 };
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   bun: null,
   ingredients: []
 };
@@ -26,7 +26,7 @@ export const constructorSlice = createSlice({
           state.ingredients.push(action.payload);
         }
       },
-      prepare: (ingredient: TConstructorIngredient) => {
+      prepare: (ingredient: TIngredient) => {
         const id = uuidv4();
         return { payload: { ...ingredient, id } };
       }
@@ -49,3 +49,5 @@ export const constructorSlice = createSlice({
 export const { addItem, deleteItem, clearAll, updateAll } =
   constructorSlice.actions;
 export const constructorSelector = constructorSlice.selectors;
+
+export const constructorBurgerReducer = constructorSlice.reducer;

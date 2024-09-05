@@ -10,10 +10,19 @@ export type TIngredient = {
   image: string;
   image_large: string;
   image_mobile: string;
+  id: string;
 };
 
 export type TConstructorIngredient = TIngredient & {
   id: string;
+};
+
+export type TBurgerConstructor = {
+  bun: Partial<TIngredient> | null;
+  ingredients: TConstructorIngredient[];
+  orderModalData: TOrder | null;
+  isLoading: boolean;
+  error: string;
 };
 
 export type TOrder = {

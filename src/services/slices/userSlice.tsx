@@ -7,7 +7,7 @@ import {
   getUserApi,
   updateUserApi,
   logoutApi
-} from '@api';
+} from '../../utils/burger-api';
 
 export const register = createAsyncThunk('user/register', registerUserApi);
 export const login = createAsyncThunk('user/login', loginUserApi);
@@ -21,7 +21,7 @@ export interface TUserState {
   error: string | undefined;
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
   user: {
     email: '',
@@ -97,3 +97,4 @@ export const userSlice = createSlice({
 
 export const { isAuthCheckedSelector, getUser, getName, getError } =
   userSlice.selectors;
+export const userSliceReducer = userSlice.reducer;
